@@ -72,20 +72,25 @@ jobs:
           wget -q https://ikea.polaris.synopsys.com/api/tools/polaris_cli-linux64.zip
           unzip -j polaris_cli-linux64.zip -d /tmp
           /tmp/polaris -c polaris.yml analyze -w --coverity-ignore-capture-failure
-      - uses: act10ns/slack@v1
+          
+      - name: Simple notification
+        uses: adamkdean/simple-slack-notify@master
         with:
-         status: ${{ job.status }}
-         steps: ${{ toJson(steps) }}
-         slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-        if: always() 
+           text: 'This is the simplest notification'
+#       - uses: act10ns/slack@v1
+#         with:
+#          status: ${{ job.status }}
+#          steps: ${{ toJson(steps) }}
+#          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+#         if: always() 
         
-      - name: Slack Notification
-        uses: act10ns/slack@v1
-        env:
-          SLACK_CHANNEL: github-actions
-          SLACK_COLOR: '#3278BD'
-        #  SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: 'Post Content :Job issue summary:'
-          SLACK_TITLE: Post Title
-          SLACK_USERNAME: Notification
-          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL}}
+#       - name: Slack Notification
+#         uses: act10ns/slack@v1
+#         env:
+#           SLACK_CHANNEL: github-actions
+#           SLACK_COLOR: '#3278BD'
+#         #  SLACK_ICON: https://github.com/rtCamp.png?size=48
+#           SLACK_MESSAGE: 'Post Content :Job issue summary:'
+#           SLACK_TITLE: Post Title
+#           SLACK_USERNAME: Notification
+#           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_URL}}
